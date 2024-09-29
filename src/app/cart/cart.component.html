@@ -1,15 +1,15 @@
-<aside class="w-full rounded-xl bg-white">
-  <h1 class="mb-6 mt-5 mx-5 text-orange-500 font-[900] text-lg">
+<aside class="rounded-xl bg-white pt-5 w-[350px] pb-7">
+  <h1 class="mb-4 px-5 text-orange-500 font-[900] text-lg">
     Your Cart ({{ cartCount() }})
   </h1>
-  <ul>
+  <ul class="mx-5">
     @for (item of cartItems(); track $index) {
     <li
       class="flex items-center justify-between border-b-[1px] border-gray-400"
     >
       <div class="text-sm py-4">
         <p class="font-[800] text-gray-900 leading-loose">
-          {{ item.recipe.name }}
+          {{ item.dessert.name }}
         </p>
 
         <p class="leading-loose">
@@ -17,10 +17,10 @@
             >{{ item.quantity }}x</span
           >
           <span class="text-amber-900">
-            &commat; {{ item.recipe.price | currency : "$" }}
+            &commat; {{ item.dessert.price | currency : "$" }}
           </span>
           <span class="text-amber-900 font-[600]">
-            {{ item.recipe.price * item.quantity | currency : "$" }}
+            {{ item.dessert.price * item.quantity | currency : "$" }}
           </span>
         </p>
       </div>
@@ -60,25 +60,29 @@
     }
   </ul>
   @if(cartItems().length){
-  <div class="flex items-center justify-between pt-4">
+  <div class="flex mx-5 items-center justify-between pt-4">
     <p class="text-sm">Order Total</p>
     <p class="font-[900] ml-auto text-3xl">
       {{ totalPrice() | currency : "$" }}
     </p>
   </div>
   <div
-    class="bg-gray-300 rounded-md text-gray-900 w-full justify-center flex py-2 mt-4"
+    class="bg-gray-300 rounded-md text-gray-900 w-auto justify-center flex py-2 my-6 mx-5"
   >
     <img
       src="images/icon-carbon-neutral.svg"
       alt="Tree image"
       class="w-[26px] mr-2"
     />
-    <p>This is a <span class="font-[600]">carbon-neutral</span> delivery</p>
+    <p>
+      This is a <span class="font-[600] text-sm">carbon-neutral</span> delivery
+    </p>
+  </div>
+  <div class="flex">
+    <button appButton [rounded]="true" [fullWidth]="true" class="mx-5">
+      Confirm Order
+    </button>
   </div>
 
-  <button appButton [rounded]="true" [fullWidth]="true" class="block">
-    Confirm Order
-  </button>
   }
 </aside>

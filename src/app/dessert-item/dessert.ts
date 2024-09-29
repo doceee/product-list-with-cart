@@ -1,4 +1,4 @@
-export interface Recipe {
+export interface Dessert {
   image: {
     thumbnail: string;
     mobile: string;

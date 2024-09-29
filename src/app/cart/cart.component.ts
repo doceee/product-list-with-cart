@@ -19,6 +19,6 @@ export class CartComponent {
 
   onRemove(cartItem: CartItem) {
     console.log('test');
-    this.cartService.removeCartItem(cartItem.recipe.name);
+    this.cartService.removeCartItem(cartItem.dessert.name);
   }
 }

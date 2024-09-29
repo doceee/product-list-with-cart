@@ -1,0 +1,51 @@
+<div class="mx-2 my-1">
+  <div class="w-[230px] relative">
+    <img
+      class="rounded-lg w-full h-full"
+      [src]="dessert().image.desktop"
+      [alt]="dessert().name"
+    />
+    <div
+      class="absolute w-1/4 botton-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-full"
+      [class]="isAdded() ? 'bg-orange-500' : 'bg-white'"
+    >
+      Add to card
+    </div>
+  </div>
+
+  <p class="text-gray-500 text-sm text-left mt-6 mb-1">
+    {{ dessert().category }}
+  </p>
+  <h1 class="text-left font-[600] text-sm text-gray-950 mb-1">
+    {{ dessert().name }}
+  </h1>
+  <p class="text-orange-500 text-sm text-left">
+    {{ dessert().price | currency : "$" }}
+  </p>
+
+  <ng-container>
+    @if(!isAdded()){
+    <button
+      class="block mx-auto border-[1px] solid rounded-lg px-2 py-1 text-gray-100 bg-orange-400 hover:bg-orange-600"
+      (click)="onAdd()"
+    >
+      Add
+    </button>
+    } @else {
+    <div class="flex justify-between">
+      <button
+        class="border-[1px] solid rounded-lg w-[34px] p-1 text-gray-100 bg-orange-400 hover:bg-orange-600"
+        (click)="onDelete()"
+      >
+        -
+      </button>
+      <button
+        class="border-[1px] solid rounded-lg w-[34px] py-1 text-gray-100 bg-orange-400 hover:bg-orange-600"
+        (click)="onAdd()"
+      >
+        +
+      </button>
+    </div>
+    }
+  </ng-container>
+</div>

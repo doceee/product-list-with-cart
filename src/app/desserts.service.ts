@@ -1,14 +1,14 @@
 import { inject, Injectable } from '@angular/core';
-import { Recipe } from './recipe-item/recipe';
+import { Dessert } from './dessert-item/dessert';
 import { HttpClient } from '@angular/common/http';
-import { catchError, map, throwError } from 'rxjs';
+import { catchError, throwError } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
-export class RecipesService {
+export class DessertsService {
   private httpClient = inject(HttpClient);
 
-  loadRecipes() {
-    return this.httpClient.get<Recipe[]>('/data.json').pipe(
+  loadDesserts() {
+    return this.httpClient.get<Dessert[]>('/data.json').pipe(
       catchError((error) => {
         console.error(error);
         return throwError(() => new Error(error));

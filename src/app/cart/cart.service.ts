@@ -1,6 +1,6 @@
 import { computed, Injectable, signal } from '@angular/core';
 import { type CartItem } from './cart';
-import { Recipe } from '../recipe-item/recipe';
+import { Dessert } from '../dessert-item/dessert';
 
 @Injectable({ providedIn: 'root' })
 export class CartService {
@@ -10,20 +10,20 @@ export class CartService {
   );
   total = computed(() =>
     this.cartItems().reduce(
-      (accQty, item) => accQty + item.recipe.price * item.quantity,
+      (accQty, item) => accQty + item.dessert.price * item.quantity,
       0
     )
   );
 
   removeCartItem(name: string) {
     this.cartItems.update((data) =>
-      data.filter((item) => item.recipe.name !== name)
+      data.filter((item) => item.dessert.name !== name)
     );
   }
 
-  removeRecipe(name: string) {
+  removeDessert(name: string) {
     const itemIndex = this.cartItems().findIndex(
-      (item) => item.recipe.name === name
+      (item) => item.dessert.name === name
     );
 
     if (itemIndex < 0) {
@@ -32,7 +32,7 @@ export class CartService {
 
     if (this.cartItems()[itemIndex].quantity === 1) {
       this.cartItems.update((data) =>
-        data.filter((item) => item.recipe.name !== name)
+        data.filter((item) => item.dessert.name !== name)
       );
 
       return;
@@ -40,24 +40,24 @@ export class CartService {
 
     this.cartItems.update((data) =>
       data.map((item) =>
-        item.recipe.name === name
-          ? { recipe: item.recipe, quantity: item.quantity - 1 }
+        item.dessert.name === name
+          ? { dessert: item.dessert, quantity: item.quantity - 1 }
           : item
       )
     );
   }
 
-  addRecipe(recipe: Recipe) {
-    if (!this.cartItems().some((item) => item.recipe.name === recipe.name)) {
-      this.cartItems.set([...this.cartItems(), { recipe, quantity: 1 }]);
+  addDessert(dessert: Dessert) {
+    if (!this.cartItems().some((item) => item.dessert.name === dessert.name)) {
+      this.cartItems.set([...this.cartItems(), { dessert, quantity: 1 }]);
 
       return;
     }
 
     this.cartItems.update((data) =>
       data.map((item) =>
-        item.recipe.name === recipe.name
-          ? { recipe: item.recipe, quantity: item.quantity + 1 }
+        item.dessert.name === dessert.name
+          ? { dessert: item.dessert, quantity: item.quantity + 1 }
           : item
       )
     );

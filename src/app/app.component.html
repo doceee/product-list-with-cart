@@ -1,11 +1,12 @@
-<main class="max-w-6xl mx-auto w-full p-6 my-4 grid grid-cols-[auto_350px]">
-  <section>
+<main class="mx-auto w-full py-6 flex justify-center">
+  <section class="grow max-w-xl lg:max-w-3xl">
+    <header class="text-amber-950 font-[900] text-4xl mb-9">Desserts</header>
     @if (isFetching()) {
     <p>Fetching recipes...</p>
-    } @if (recipes()) {
+    } @if (desserts()) {
     <div class="grid grid-cols-[auto_auto_auto] max-w-2xl mx-auto w-full">
-      @for (recipe of recipes(); track recipe.name) {
-      <recipe-item [recipe]="recipe" />
+      @for (dessert of desserts(); track dessert.name) {
+      <dessert-item [dessert]="dessert" />
       }
     </div>
     }

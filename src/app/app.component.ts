@@ -1,21 +1,21 @@
 import { Component, DestroyRef, inject, signal } from '@angular/core';
-import { RecipesService } from './recipes.service';
-import { Recipe } from './recipe-item/recipe';
-import { RecipeItemComponent } from './recipe-item/recipe-item.component';
+import { DessertsService } from './desserts.service';
+import { Dessert } from './dessert-item/dessert';
+import { DessertItemComponent } from './dessert-item/dessert-item.component';
 import { CartService } from './cart/cart.service';
 import { CartComponent } from './cart/cart.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RecipeItemComponent, CartComponent],
+  imports: [DessertItemComponent, CartComponent],
   templateUrl: './app.component.html',
 })
 export class AppComponent {
-  recipes = signal<Recipe[] | undefined>(undefined);
+  desserts = signal<Dessert[] | undefined>(undefined);
   isFetching = signal(false);
 
-  private recipesService = inject(RecipesService);
+  private dessertsService = inject(DessertsService);
   private cartService = inject(CartService);
   private destroyRef = inject(DestroyRef);
 
@@ -23,9 +23,9 @@ export class AppComponent {
 
   ngOnInit() {
     this.isFetching.set(true);
-    const subscription = this.recipesService.loadRecipes().subscribe({
-      next: (recipes) => {
-        this.recipes.set(recipes);
+    const subscription = this.dessertsService.loadDesserts().subscribe({
+      next: (desserts) => {
+        this.desserts.set(desserts);
       },
       error: (err: Error) => {
         console.error(err);

@@ -1,6 +1,6 @@
-import { type Recipe } from '../recipe-item/recipe';
+import { type Dessert } from '../dessert-item/dessert';
 
 export interface CartItem {
-  recipe: Recipe;
+  dessert: Dessert;
   quantity: number;
 }
