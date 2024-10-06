@@ -1,7 +1,5 @@
 import { Component, HostBinding, Input } from '@angular/core';
 
-const base =
-  'items-center font-medium shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 border-transparent bg-orange-600 text-white hover:bg-orange-700 focus:ring-orange-500';
 const sizeNormal = 'px-4 py-2 text-sm';
 const sizeSmall = 'px-2 py-1 text-sm';
 
@@ -12,7 +10,7 @@ const twClasses = (
   rounded = false,
   fullWidth = false
 ): string =>
-  `${base} ${size === 'normal' ? sizeNormal : sizeSmall} ${
+  `${size === 'normal' ? sizeNormal : sizeSmall} ${
     rounded ? 'rounded-full' : 'rounded-md'
   } ${fullWidth ? 'w-full' : ''}`;
 
@@ -20,6 +18,10 @@ const twClasses = (
   selector: 'button[appButton], a[appButton]',
   standalone: true,
   templateUrl: './button.component.html',
+  host: {
+    class:
+      'items-center font-medium shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 border-transparent bg-orange-600 text-white hover:bg-orange-700 focus:ring-orange-500',
+  },
 })
 export class ButtonComponent {
   @HostBinding('class')

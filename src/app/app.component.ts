@@ -4,22 +4,26 @@ import { Dessert } from './dessert-item/dessert';
 import { DessertItemComponent } from './dessert-item/dessert-item.component';
 import { CartService } from './cart/cart.service';
 import { CartComponent } from './cart/cart.component';
+import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [DessertItemComponent, CartComponent],
+  imports: [DessertItemComponent, ConfirmDialogComponent, CartComponent],
   templateUrl: './app.component.html',
 })
 export class AppComponent {
   desserts = signal<Dessert[] | undefined>(undefined);
   isFetching = signal(false);
+  isModalOpen = signal(false);
 
   private dessertsService = inject(DessertsService);
   private cartService = inject(CartService);
   private destroyRef = inject(DestroyRef);
 
   cartCount = this.cartService.cartCount;
+  cartItems = this.cartService.cartItems;
+  totalPrice = this.cartService.total;
 
   ngOnInit() {
     this.isFetching.set(true);
@@ -36,5 +40,18 @@ export class AppComponent {
     this.destroyRef.onDestroy(() => {
       subscription.unsubscribe();
     });
+  }
+
+  handleSubmit() {
+    this.cartService.reset();
+    this.isModalOpen.set(false);
+  }
+
+  handleModalOpen() {
+    this.isModalOpen.set(true);
+  }
+
+  handleModalClose() {
+    this.isModalOpen.set(false);
   }
 }

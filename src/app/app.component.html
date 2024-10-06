@@ -1,15 +1,30 @@
-<main class="mx-auto w-full py-6 flex justify-center">
-  <section class="grow max-w-xl lg:max-w-3xl">
-    <header class="text-amber-950 font-[900] text-4xl mb-9">Desserts</header>
+<main class="mx-auto w-full py-6 sm:flex justify-center">
+  <section class="grow lg:max-w-3xl w-full sm:px-4 px-1">
+    <header
+      class="text-amber-950 font-[900] sm:w-full w-[320px] mx-auto sm:ml-auto text-4xl sm:mb-9 mb-4"
+    >
+      Desserts
+    </header>
     @if (isFetching()) {
     <p>Fetching recipes...</p>
     } @if (desserts()) {
-    <div class="grid grid-cols-[auto_auto_auto] max-w-2xl mx-auto w-full">
+    <div
+      class="grid sm:gap-3 gap-1 lg:grid-cols-3 sm:w-full md:grid-cols-2 grid-cols-1 w-[320px] mx-auto"
+    >
       @for (dessert of desserts(); track dessert.name) {
       <dessert-item [dessert]="dessert" />
       }
     </div>
     }
   </section>
-  <app-cart />
+
+  <app-cart (onModalOpen)="handleModalOpen()" />
+
+  <app-confirm-dialog
+    (onSubmit)="handleSubmit()"
+    (onModalClose)="handleModalClose()"
+    [cart]="cartItems()"
+    [total]="totalPrice()"
+    [open]="isModalOpen()"
+  />
 </main>

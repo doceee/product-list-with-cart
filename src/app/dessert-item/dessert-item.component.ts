@@ -13,12 +13,12 @@ export class DessertItemComponent {
   dessert = input.required<Dessert>();
   private cartService = inject(CartService);
 
-  isAdded = computed(() =>
-    this.cartService
-      .cartItems()
-      .some(
-        (item) => item.dessert.name === this.dessert().name && item.quantity > 0
-      )
+  quantity = computed(
+    () =>
+      this.cartService
+        .cartItems()
+        .find((item) => item.dessert.name === this.dessert().name)?.quantity ||
+      0
   );
 
   onAdd() {

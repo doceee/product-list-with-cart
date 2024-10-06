@@ -1,51 +1,67 @@
-<div class="mx-2 my-1">
-  <div class="w-[230px] relative">
+<div class="w-full relative">
+  <picture>
+    <source media="(max-width: 640px)" [srcset]="dessert().image.mobile" />
+    <source media="(max-width: 768px)" [srcset]="dessert().image.tablet" />
     <img
-      class="rounded-lg w-full h-full"
+      class="rounded-lg w-[calc(100%-4px)] sm:h-auto h-[180px] md:h-calc(100%-4px) border-[2px]"
+      [class]="quantity() ? 'border-orange-500' : 'border-transparent'"
       [src]="dessert().image.desktop"
-      [alt]="dessert().name"
+      [alt]="dessert().name + ' image'"
     />
-    <div
-      class="absolute w-1/4 botton-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-full"
-      [class]="isAdded() ? 'bg-orange-500' : 'bg-white'"
-    >
-      Add to card
-    </div>
-  </div>
-
-  <p class="text-gray-500 text-sm text-left mt-6 mb-1">
-    {{ dessert().category }}
-  </p>
-  <h1 class="text-left font-[600] text-sm text-gray-950 mb-1">
-    {{ dessert().name }}
-  </h1>
-  <p class="text-orange-500 text-sm text-left">
-    {{ dessert().price | currency : "$" }}
-  </p>
+  </picture>
 
   <ng-container>
-    @if(!isAdded()){
+    @if(!quantity()){
     <button
-      class="block mx-auto border-[1px] solid rounded-lg px-2 py-1 text-gray-100 bg-orange-400 hover:bg-orange-600"
+      class="absolute w-[140px] left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-full py-2 bg-white border-gray-800 border-[1px]"
       (click)="onAdd()"
     >
-      Add
+      <div class="w-full flex justify-center font-[500]">
+        <img
+          slot="icon"
+          src="images/icon-add-to-cart.svg"
+          alt="Cart image"
+          class="mr-1"
+        />
+        Add to card
+      </div>
     </button>
     } @else {
-    <div class="flex justify-between">
-      <button
-        class="border-[1px] solid rounded-lg w-[34px] p-1 text-gray-100 bg-orange-400 hover:bg-orange-600"
-        (click)="onDelete()"
-      >
-        -
-      </button>
-      <button
-        class="border-[1px] solid rounded-lg w-[34px] py-1 text-gray-100 bg-orange-400 hover:bg-orange-600"
-        (click)="onAdd()"
-      >
-        +
-      </button>
+    <div
+      class="absolute w-[140px] left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-full py-2 bg-orange-500 border-[1px] border-orange-500"
+    >
+      <div class="flex w-full justify-between">
+        <button
+          class="border-[1px] ml-2 border-white rounded-full p-1"
+          (click)="onDelete()"
+        >
+          <img
+            src="images/icon-decrement-quantity.svg"
+            alt="Decrement quantity icon"
+          />
+        </button>
+        <p class="text-white text-sm">{{ quantity() }}</p>
+        <button
+          class="border-[1px] border-white rounded-full p-1 mr-2"
+          (click)="onAdd()"
+        >
+          <img
+            src="images/icon-increment-quantity.svg"
+            alt="Increment quantity icon"
+          />
+        </button>
+      </div>
     </div>
     }
   </ng-container>
 </div>
+
+<p class="text-gray-500 text-sm text-left mt-6 mb-1">
+  {{ dessert().category }}
+</p>
+<h1 class="text-left font-[600] text-sm text-gray-950 mb-1">
+  {{ dessert().name }}
+</h1>
+<p class="text-orange-500 text-sm text-left mb-6 md:mb-0">
+  {{ dessert().price | currency : "$" }}
+</p>

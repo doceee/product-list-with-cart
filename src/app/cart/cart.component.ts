@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, output } from '@angular/core';
 import { CartService } from './cart.service';
 import { ButtonComponent } from '../shared/button/button.component';
 import { CurrencyPipe } from '@angular/common';
@@ -11,6 +11,7 @@ import { CartItem } from './cart';
   templateUrl: './cart.component.html',
 })
 export class CartComponent {
+  onModalOpen = output();
   private cartService = inject(CartService);
 
   cartCount = this.cartService.cartCount;
@@ -18,7 +19,6 @@ export class CartComponent {
   totalPrice = this.cartService.total;
 
   onRemove(cartItem: CartItem) {
-    console.log('test');
     this.cartService.removeCartItem(cartItem.dessert.name);
   }
 }

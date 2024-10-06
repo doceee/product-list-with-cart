@@ -15,6 +15,10 @@ export class CartService {
     )
   );
 
+  reset() {
+    this.cartItems.set([]);
+  }
+
   removeCartItem(name: string) {
     this.cartItems.update((data) =>
       data.filter((item) => item.dessert.name !== name)
