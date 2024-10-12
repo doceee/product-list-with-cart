@@ -1,4 +1,4 @@
-import { Component, input, output } from '@angular/core';
+import { Component, input } from '@angular/core';
 
 @Component({
   selector: 'app-modal',
@@ -6,6 +6,5 @@ import { Component, input, output } from '@angular/core';
   templateUrl: './modal.component.html',
 })
 export class ModalComponent {
-  onModalClose = output();
   open = input.required<boolean>();
 }

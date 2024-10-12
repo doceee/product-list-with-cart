@@ -1,8 +1,11 @@
 @if(open()){
-<app-modal [open]="open()" (onModalClose)="onModalClose.emit()">
+<app-modal [open]="open()">
   <div
-    class="container rounded-md bg-white w-full max-w-[420px] py-8 mx-auto px-6 my-10"
+    class="container rounded-md bg-white w-full max-w-[420px] py-8 mx-auto px-6"
   >
+    <div class="flex justify-end px-2 pb-2">
+      <button (click)="onModalClose.emit()">&#x2715;</button>
+    </div>
     <img src="images/icon-order-confirmed.svg" alt="Check mark icon" />
     <h1 class="text-left font-[800] text-2xl mt-8 mb-3">Order Confirmed</h1>
     <p class="text-left text-gray-600 text-sm mb-6">

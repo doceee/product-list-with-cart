@@ -9,6 +9,7 @@ import { ModalComponent } from '../shared/modal/modal.component';
   standalone: true,
   imports: [ButtonComponent, ModalComponent, CurrencyPipe],
   templateUrl: './confirm-dialog.component.html',
+  host: { class: 'fixed flex items-center justify-center' },
 })
 export class ConfirmDialogComponent {
   onModalClose = output();
