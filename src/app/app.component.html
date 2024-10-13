@@ -21,12 +21,9 @@
   <app-cart (onModalOpen)="handleModalOpen()" />
 
   @if (isModalOpen()) {
-  <app-modal
+  <confirm-dialog
     (onModalClose)="handleModalClose()"
     (onModalSubmit)="handleModalSubmit()"
-    [cart]="cartItems()"
-    [total]="totalPrice()"
-    [open]="isModalOpen()"
   />
   }
 </main>

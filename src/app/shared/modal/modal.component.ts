@@ -1,13 +1,13 @@
 import {
   Component,
   ElementRef,
+  Input,
   input,
   OnDestroy,
   OnInit,
   output,
   Renderer2,
 } from '@angular/core';
-import { CartItem } from '../../cart/cart';
 import { ButtonComponent } from '../../shared/button/button.component';
 import { CurrencyPipe } from '@angular/common';
 import { ClickOutsideDirective } from '../directives/click-outside.directive';
@@ -21,31 +21,45 @@ import { ClickOutsideDirective } from '../directives/click-outside.directive';
 export class ModalComponent implements OnInit, OnDestroy {
   constructor(private el: ElementRef, private renderer: Renderer2) {}
   onModalClose = output();
-  onModalSubmit = output();
+  enableCloseOutside = input(true);
 
-  open = input.required<boolean>();
-  cart = input.required<CartItem[]>();
-  total = input.required<number>();
+  private _to = '';
+  @Input()
+  set to(value: string) {
+    this._to = value;
+  }
 
   ngOnInit() {
-    const body = this.renderer.selectRootElement('body', true);
-    this.renderer.appendChild(body, this.el.nativeElement);
+    if (!this._to) return;
+
+    let teleportTo;
+
+    try {
+      teleportTo = this.renderer.selectRootElement(this._to, true);
+    } catch (error) {
+      console.error(
+        `Couldn't find DOM Element with specified name: '${this._to}'`
+      );
+      this._to = 'body';
+
+      teleportTo = this.renderer.selectRootElement(this._to, true);
+    }
+
+    this.renderer.appendChild(teleportTo, this.el.nativeElement);
   }
 
   ngOnDestroy() {
-    if (!document.body.contains(this.el.nativeElement)) {
+    if (!this._to || !document.body.contains(this.el.nativeElement)) {
       return;
     }
 
-    const body = this.renderer.selectRootElement('body', true);
-    this.renderer.removeChild(body, this.el.nativeElement);
+    const teleportTo = this.renderer.selectRootElement(this._to, true);
+    this.renderer.removeChild(teleportTo, this.el.nativeElement);
   }
 
   closeModal() {
-    this.onModalClose.emit();
-  }
+    if (!this.enableCloseOutside()) return;
 
-  submitModal() {
-    this.onModalSubmit.emit();
+    this.onModalClose.emit();
   }
 }

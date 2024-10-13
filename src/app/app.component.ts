@@ -4,12 +4,11 @@ import { Dessert } from './dessert-item/dessert';
 import { DessertItemComponent } from './dessert-item/dessert-item.component';
 import { CartService } from './cart/cart.service';
 import { CartComponent } from './cart/cart.component';
-import { ModalComponent } from './shared/modal/modal.component';
-
+import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [DessertItemComponent, CartComponent, ModalComponent],
+  imports: [DessertItemComponent, CartComponent, ConfirmDialogComponent],
   templateUrl: './app.component.html',
 })
 export class AppComponent {
@@ -22,8 +21,6 @@ export class AppComponent {
   private destroyRef = inject(DestroyRef);
 
   cartCount = this.cartService.cartCount;
-  cartItems = this.cartService.cartItems;
-  totalPrice = this.cartService.total;
 
   ngOnInit() {
     this.isFetching.set(true);
