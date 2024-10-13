@@ -4,12 +4,12 @@ import { Dessert } from './dessert-item/dessert';
 import { DessertItemComponent } from './dessert-item/dessert-item.component';
 import { CartService } from './cart/cart.service';
 import { CartComponent } from './cart/cart.component';
-import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
+import { ModalComponent } from './shared/modal/modal.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [DessertItemComponent, ConfirmDialogComponent, CartComponent],
+  imports: [DessertItemComponent, CartComponent, ModalComponent],
   templateUrl: './app.component.html',
 })
 export class AppComponent {
@@ -42,7 +42,7 @@ export class AppComponent {
     });
   }
 
-  handleSubmit() {
+  handleModalSubmit() {
     this.cartService.reset();
     this.isModalOpen.set(false);
   }

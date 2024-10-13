@@ -20,11 +20,13 @@
 
   <app-cart (onModalOpen)="handleModalOpen()" />
 
-  <app-confirm-dialog
-    (onSubmit)="handleSubmit()"
+  @if (isModalOpen()) {
+  <app-modal
     (onModalClose)="handleModalClose()"
+    (onModalSubmit)="handleModalSubmit()"
     [cart]="cartItems()"
     [total]="totalPrice()"
     [open]="isModalOpen()"
   />
+  }
 </main>
